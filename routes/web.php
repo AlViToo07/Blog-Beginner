@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\ApiController;
 
 Route::get('/', [HomeController::class, 'index'])->name('dashboard');
 
@@ -42,5 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+Route::get('/api/categories', [ApiController::class, 'categories']);
+Route::get('/api/posts', [ApiController::class, 'posts']);
+Route::get('/api/categories/posts/{category:slug}', [ApiController::class, 'categoryArticle']);
 require __DIR__ . '/auth.php';
